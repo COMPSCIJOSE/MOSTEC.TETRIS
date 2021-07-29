@@ -255,7 +255,7 @@ def draw_window(surface):
     surface.fill((0,0,0))
     # Tetris Title
     font = pygame.font.SysFont('comicsans', 60)
-    label = font.render('TETRIS', 1, (255,255,255))
+    label = font.render('MOSTEC-TRIS', 1, (102, 0, 102))
 
     surface.blit(label, (top_left_x + play_width / 2 - (label.get_width() / 2), 30))
 
@@ -369,7 +369,7 @@ def main():
         if check_lost(locked_positions):
             run = False
 
-    draw_text_middle("You Lost", 40, (255,255,255), win)
+    draw_text_middle("Looks Like You Made a MOSTEC-TAKE!", 40, (102, 0, 102), win)
     pygame.display.update()
     pygame.time.delay(2000)
 
@@ -390,7 +390,7 @@ def main_menu():
 
 
 win = pygame.display.set_mode((s_width, s_height))
-pygame.display.set_caption('Tetris')
+pygame.display.set_caption('MOSTEC-TRIS')
 
 main_menu()  # start game
 
