@@ -236,7 +236,7 @@ def clear_rows(grid, locked):
 
 def draw_next_shape(shape, surface):
     font = pygame.font.SysFont('comicsans', 30)
-    label = font.render('Next Shape', 1, (255,255,255))
+    label = font.render('Next Shape', 1, (102,0,102))
 
     sx = top_left_x + play_width + 50
     sy = top_left_y + play_height/2 - 100
@@ -369,7 +369,7 @@ def main():
         if check_lost(locked_positions):
             run = False
 
-    draw_text_middle("Looks Like You Made a MOSTEC-TAKE!", 40, (102, 0, 102), win)
+    draw_text_middle("Looks Like You Made a MOSTEC-TAKE!", 40, (255, 255, 255), win)
     pygame.display.update()
     pygame.time.delay(2000)
 
@@ -378,7 +378,7 @@ def main_menu():
     run = True
     while run:
         win.fill((0,0,0))
-        draw_text_middle('Press any key to begin.', 60, (255, 255, 255), win)
+        draw_text_middle('Press any key to begin.', 60, (102, 0, 102), win)
         pygame.display.update()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
