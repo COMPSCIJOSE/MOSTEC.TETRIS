@@ -440,7 +440,6 @@ def main_menu(win):
 
 win = pygame.display.set_mode((s_width, s_height))
 pygame.display.set_caption('MOSTEC-TRIS')
-
 main_menu(win)  # start game
 
 
