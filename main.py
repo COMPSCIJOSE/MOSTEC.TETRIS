@@ -435,7 +435,7 @@ def main_menu(win):
                         run = False
                   if event.type == pygame.KEYDOWN:
                         main()
-     pygame.display.quit()
+      pygame.display.quit()
 
 
 win = pygame.display.set_mode((s_width, s_height))
