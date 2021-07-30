@@ -298,9 +298,9 @@ def draw_window(surface, grid, score = 0, last_score = 0):
       sy = top_left_y + 200
       
       surface.blit(label,(sx + 20, sy + 160))
-
-    for i in range(len(grid)):
-        for j in range(len(grid[i])):
+      
+for i in range(len(grid)):
+      for j in range(len(grid[i])):
             pygame.draw.rect(surface, grid[i][j], (top_left_x + j* 30, top_left_y + i * 30, 30, 30), 0)      
       
             
