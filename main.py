@@ -318,7 +318,7 @@ def draw_window(surface, grid, score = 0, last_score = 0):
 
 def main():
     global grid
-
+    last_score = max_score()
     locked_positions = {}  # (x,y):(255,0,0)
     grid = create_grid(locked_positions)
 
@@ -424,18 +424,18 @@ def main():
             update_score(score)
 
 
-def main_menu(win):  
-    run = True
-    while run:
-        win.fill((0,0,0))
-        draw_text_middle = ('Press any key to begin.', 60, (102, 0, 102))
-        pygame.display.update()
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                run = False
-            if event.type == pygame.KEYDOWN:
-                main()
-    pygame.display.quit()
+def main_menu(win): 
+      run = True
+      while run:
+            win.fill((0,0,0))
+            draw_text_middle = ('Press any key to begin.', 60, (102, 0, 102))
+            pygame.display.update()
+            for event in pygame.event.get():
+                  if event.type == pygame.QUIT:
+                        run = False
+                  if event.type == pygame.KEYDOWN:
+                        main()
+     pygame.display.quit()
 
 
 win = pygame.display.set_mode((s_width, s_height))
