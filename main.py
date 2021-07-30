@@ -258,6 +258,7 @@ def draw_next_shape(shape, surface):
                 pygame.draw.rect(surface, shape.color, (sx + j*30, sy + i*30, 30, 30), 0)
 
     surface.blit(label, (sx + 10, sy- 30))
+score = 0 
 
 def update_score(nscore):
       score = max_score()
