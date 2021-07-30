@@ -428,7 +428,7 @@ def main_menu(win):
     run = True
     while run:
         win.fill((0,0,0))
-        draw_text_middle('Press any key to begin.', 60, (102, 0, 102))
+        draw_text_middle = ('Press any key to begin.', 60, (102, 0, 102))
         pygame.display.update()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
