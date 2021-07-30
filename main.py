@@ -417,14 +417,14 @@ def main():
         if check_lost(locked_positions):
             run = False
         if check_lost(locked_positions):
-      draw_text_middle("Looks Like You Made a MOSTEC-TAKE!", 40, (255, 255, 255))
-      pygame.display.update()
-      pygame.time.delay(2000)
-      run = False 
-      update_score(score)
+            draw_text_middle("Looks Like You Made a MOSTEC-TAKE!", 40, (255, 255, 255))
+            pygame.display.update()
+            pygame.time.delay(2000)
+            run = False 
+            update_score(score)
 
 
-def main_menu(win): #* 
+def main_menu(win):  
     run = True
     while run:
         win.fill((0,0,0))
