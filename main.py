@@ -307,8 +307,8 @@ for i in range(len(grid)):
             
 
     # draw grid and border
-    draw_grid(surface, 20, 10)
-    pygame.draw.rect(surface, (255, 0, 0), (top_left_x, top_left_y, play_width, play_height), 5)
+draw_grid(surface, 20, 10)
+pygame.draw.rect(surface, (255, 0, 0), (top_left_x, top_left_y, play_width, play_height), 5)
     # pygame.display.update()
       
       
