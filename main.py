@@ -416,7 +416,7 @@ def main():
         # Check if user lost
         if check_lost(locked_positions):
             run = False
-if check_lost(locked_positions):
+        if check_lost(locked_positions):
       draw_text_middle("Looks Like You Made a MOSTEC-TAKE!", 40, (255, 255, 255))
       pygame.display.update()
       pygame.time.delay(2000)
