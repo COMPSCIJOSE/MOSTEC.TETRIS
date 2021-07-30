@@ -142,8 +142,8 @@ class Piece(object):
     columns = 10  # x
 
     def __init__(self, column, row, shape):
-        self.x = column
-        self.y = row
+        self.x = x
+        self.y = y
         self.shape = shape
         self.color = shape_colors[shapes.index(shape)]
         self.rotation = 0  # number from 0-3
@@ -206,17 +206,18 @@ def get_shape():
 def draw_text_middle(text, size, color, surface):
     font = pygame.font.SysFont('comicsans', size, bold=True)
     label = font.render(text, 1, color)
+    surface.blit(label, (top_left_x + play_width /2 - (label.get_width()/2), top_left_y + play_height/2 - label.get_height()/2))
 
-    surface.blit(label, (top_left_x + play_width/2 - (label.get_width() / 2), top_left_y + play_height/2 - label.get_height()/2))
 
 
-def draw_grid(surface, row, col):
+def draw_grid(surface,grid):
     sx = top_left_x
     sy = top_left_y
-    for i in range(row):
-        pygame.draw.line(surface, (128,128,128), (sx, sy+ i*30), (sx + play_width, sy + i * 30))  # horizontal lines
-        for j in range(col):
-            pygame.draw.line(surface, (128,128,128), (sx + j * 30, sy), (sx + j * 30, sy + play_height))  # vertical lines
+      
+    for i in range(len(grid)):
+        pygame.draw.line(surface, (128,128,128), (sx, sy+ i*block_size), (sx + play_width, sy + i+block_size))  # horizontal lines
+        for j in range(len(grid[i])):
+            pygame.draw.line(surface, (128,128,128), (sx + j*block_size, sy), (sx + j*block_size, sy + play_height))  # vertical lines
 
 
 def clear_rows(grid, locked):
@@ -255,9 +256,8 @@ def draw_next_shape(shape, surface):
         row = list(line)
         for j, column in enumerate(row):
             if column == '0':
-                pygame.draw.rect(surface, shape.color, (sx + j*30, sy + i*30, 30, 30), 0)
-
-    surface.blit(label, (sx + 10, sy- 30))
+                pygame.draw.rect(surface, shape.color, (sx + j*block_size, sy + i*block_size, block_size, block_size), 0)
+    surface.blit(label, (sx + 10, sy - 30))
 score = 0 
 
 def update_score(nscore):
@@ -270,7 +270,7 @@ def update_score(nscore):
                  f.write(str(nscore))
             
 def max_score():
-      with open('scores.txt', 'w') as f:
+      with open('scores.txt', 'r') as f:
             lines = f.readlines()
             score=lines[0].strip()
             
@@ -291,7 +291,7 @@ def draw_window(surface, grid, score = 0, last_score = 0):
       sx = top_left_x + play_width + 50
       sy = top_left_y + play_height/2 - 100
       
-      surface.blit(label,(sx+20, sy +160))
+      surface.blit(label,(sx+ 20, sy + 160))
       #last score
       label = font.render('High Score: ' + last_score, 1, (102, 0, 102))
       
@@ -299,11 +299,10 @@ def draw_window(surface, grid, score = 0, last_score = 0):
       sy = top_left_y + 200
       
       surface.blit(label,(sx + 20, sy + 160))
-      
-      
-      for i in range(len(grid)):
-            for j in range(len(grid[i])):
-                  pygame.draw.rect(surface, grid[i][j], (top_left_x + j* 30, top_left_y + i * 30, 30, 30), 0)      
+       for i in range(len(grid)):
+                  for j in range(len(grid[i])):
+                         pygame.draw.rect(surface, grid[i][j], (top_left_x + j*block_size, top_left_y + i*block_size, block_size, block_size), 5)
+                      
       
             
             
@@ -317,7 +316,7 @@ def draw_window(surface, grid, score = 0, last_score = 0):
    
 
 
-def main():
+def main(win):
     global grid
     last_score = max_score()
     locked_positions = {}  # (x,y):(255,0,0)
@@ -347,7 +346,7 @@ def main():
             
 
         # PIECE FALLING CODE
-        if fall_time/1000 >= fall_speed:
+        if fall_time/1000 > fall_speed:
             fall_time = 0
             current_piece.y += 1
             if not (valid_space(current_piece, grid)) and current_piece.y > 0:
@@ -358,22 +357,22 @@ def main():
             if event.type == pygame.QUIT:
                 run = False
                 pygame.display.quit()
-                quit()
+               
 
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_LEFT:
                     current_piece.x -= 1
-                    if not valid_space(current_piece, grid):
+                    if not (valid_space(current_piece, grid)):
                         current_piece.x += 1
 
                 elif event.key == pygame.K_RIGHT:
                     current_piece.x += 1
-                    if not valid_space(current_piece, grid):
+                    if not (valid_space(current_piece, grid)):
                         current_piece.x -= 1
                 elif event.key == pygame.K_UP:
                     # rotate shape
                     current_piece.rotation = current_piece.rotation + 1 % len(current_piece.shape)
-                    if not valid_space(current_piece, grid):
+                    if not (valid_space(current_piece, grid)):
                         current_piece.rotation = current_piece.rotation - 1 % len(current_piece.shape)
 
                 if event.key == pygame.K_DOWN:
@@ -404,7 +403,7 @@ def main():
             current_piece = next_piece
             next_piece = get_shape()
             change_piece = False
-            score += clear_rows(grids, locked_positions) * 10 
+            score += clear_rows(grid, locked_positions) * 10 
 
             # call four times to check for multiple clear rows
             if clear_rows(grid, locked_positions):
@@ -415,8 +414,7 @@ def main():
         pygame.display.update()
 
         # Check if user lost
-        if check_lost(locked_positions):
-            run = False
+      
         if check_lost(locked_positions):
             draw_text_middle("Looks Like You Made a MOSTEC-TAKE!", 40, (255, 255, 255))
             pygame.display.update()
