@@ -240,6 +240,7 @@ def clear_rows(grid, locked):
             if y < ind:
                 newKey = (x, y + inc)
                 locked[newKey] = locked.pop(key)
+    return inc 
 
 
 def draw_next_shape(shape, surface):
@@ -258,23 +259,60 @@ def draw_next_shape(shape, surface):
 
     surface.blit(label, (sx + 10, sy- 30))
 
+def update_score(nscore):
+      score = max_score()
+      
+      with open('scores.txt', 'w') as f:
+            if int(score) > nscore:
+                  f.write(str(score))
+            else:
+                 f.write(str(nscore))
+            
+def max_score():
+      with open('scores.txt', 'r') as f:
+            lines = f.readlines()
+            score=lines[0].strip()
+            
+      return score
 
-def draw_window(surface):
-    surface.fill((0,0,0))
+def draw_window(surface, grid, score = 0, last_score = 0):
+      surface.fill((0,0,0))
     # Tetris Title
-    font = pygame.font.SysFont('comicsans', 60)
-    label = font.render('MOSTEC-TRIS', 1, (102, 0, 102))
+      font = pygame.font.SysFont('comicsans', 60)
+      label = font.render('MOSTEC-TRIS', 1, (102, 0, 102))
 
-    surface.blit(label, (top_left_x + play_width / 2 - (label.get_width() / 2), 30))
+      surface.blit(label, (top_left_x + play_width / 2 - (label.get_width() / 2), 30))
+
+      #current score
+      font = pygame.font.SysFont('comiscans', 30)
+      label = font.reader('Score: ' + str(score), 1, (102, 0, 102))
+      
+      sx = top_left_x + play_width + 50
+      sy = top_left_y + play_height/2 - 100
+      
+      surface.blit(label,(sx+20, sy +160))
+      #last score
+      label = font.render('High Score: ' + last_score, 1, (102, 0, 102))
+      
+      sx = top_left_x - 200
+      sy = top_left_y + 200
+      
+      surface.blit(label,(sx + 20, sy + 160))
 
     for i in range(len(grid)):
         for j in range(len(grid[i])):
-            pygame.draw.rect(surface, grid[i][j], (top_left_x + j* 30, top_left_y + i * 30, 30, 30), 0)
+            pygame.draw.rect(surface, grid[i][j], (top_left_x + j* 30, top_left_y + i * 30, 30, 30), 0)      
+      
+            
+            
 
     # draw grid and border
     draw_grid(surface, 20, 10)
     pygame.draw.rect(surface, (255, 0, 0), (top_left_x, top_left_y, play_width, play_height), 5)
     # pygame.display.update()
+      
+      
+   
 
 
 def main():
@@ -364,43 +402,45 @@ def main():
             current_piece = next_piece
             next_piece = get_shape()
             change_piece = False
+            score += clear_rows(grids, locked_positions) * 10 
 
             # call four times to check for multiple clear rows
             if clear_rows(grid, locked_positions):
                 score += 10
 
-        draw_window(win)
+        draw_window(win, grid, score, last_score)
         draw_next_shape(next_piece, win)
         pygame.display.update()
 
         # Check if user lost
         if check_lost(locked_positions):
             run = False
+if check_lost(locked_positions):
+      draw_text_middle("Looks Like You Made a MOSTEC-TAKE!", 40, (255, 255, 255))
+      pygame.display.update()
+      pygame.time.delay(2000)
+      run = False 
+      update_score(score)
 
-    draw_text_middle("Looks Like You Made a MOSTEC-TAKE!", 40, (255, 255, 255), win)
-    pygame.display.update()
-    pygame.time.delay(2000)
 
-
-def main_menu():
+def main_menu(win): #* 
     run = True
     while run:
         win.fill((0,0,0))
-        draw_text_middle('Press any key to begin.', 60, (102, 0, 102), win)
+        draw_text_middle('Press any key to begin.', 60, (102, 0, 102))
         pygame.display.update()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 run = False
-
             if event.type == pygame.KEYDOWN:
-                main()
-    pygame.quit()
+                main(win)
+    pygame.display.quit()
 
 
 win = pygame.display.set_mode((s_width, s_height))
 pygame.display.set_caption('MOSTEC-TRIS')
 
-main_menu()  # start game
+main_menu(win)  # start game
 
 
 
