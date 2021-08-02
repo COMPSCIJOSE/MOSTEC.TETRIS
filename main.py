@@ -266,6 +266,26 @@ def draw_window(surface, grid, score = 0, last_score = 0):
       font = pygame.font.SysFont('comicsans', 60)
       label = font.render('MOSTEC-TRIS', 1, (102, 0, 102))
 
+import sys, os
+    print os.path.dirname(os.path.abspath(sys.argv[0])
+def update_score(nscore):
+      score = max_score()
+      
+    
+      with open('scores.txt', 'w') as f:
+            if int(score) > nscore:
+                  f.write(str(score))
+            else:
+                 f.write(str(nscore))
+            
+def max_score():
+     
+      with open('scores.txt', 'r') as f:
+            lines = f.readlines()
+            score=lines[0].strip()
+            
+      return score
+
       surface.blit(label, (top_left_x + play_width / 2 - (label.get_width() / 2), 30))
 
       #current score
@@ -414,6 +434,7 @@ def main_menu(win):
                   if event.type == pygame.KEYDOWN:
                         main(win)
       pygame.display.quit()
+
 
 
 win = pygame.display.set_mode((s_width, s_height))
