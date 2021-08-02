@@ -261,11 +261,12 @@ def draw_next_shape(shape, surface):
                 pygame.draw.rect(surface, shape.color, (sx + j*block_size, sy + i*block_size, block_size, block_size), 0)
     surface.blit(label, (sx + 10, sy - 30))
 score = 0 
-
+import sys, os
+    print os.path.dirname(os.path.abspath(sys.argv[0])
 def update_score(nscore):
       score = max_score()
       
-      f = open(os.path.join(Documents, 'scores.txt'))      
+    
       with open('scores.txt', 'w') as f:
             if int(score) > nscore:
                   f.write(str(score))
@@ -273,7 +274,7 @@ def update_score(nscore):
                  f.write(str(nscore))
             
 def max_score():
-      f = open(os.path.join(documents, 'scores.txt'))
+     
       with open('scores.txt', 'r') as f:
             lines = f.readlines()
             score=lines[0].strip()
