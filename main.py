@@ -3,8 +3,8 @@ import random
 
 """
 10 x 20 square grid
-shapes: S, Z, I, O, J, L, T
-represented in order by 0 - 6
+shapes: S, Z, I, O, J, L, T, D
+represented in order by 0 - 7
 """
 
 pygame.font.init()
@@ -123,8 +123,13 @@ T = [['.....',
       '.00..',
       '..0..',
       '.....']]
+D = [['.....',
+      '.000.',
+      '.000.',
+      '.000.',
+      '.....']]
 
-shapes = [S, Z, I, O, J, L, T]
+shapes = [S, Z, I, O, J, L, T,D]
 shape_colors= [(102, 0, 102), (102, 0, 102), (102, 0, 102), (102, 0, 102), (102, 0, 102), (102, 0, 102),(102, 0, 102)]
 # index 0 - 6 represent shape
 
