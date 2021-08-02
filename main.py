@@ -288,15 +288,9 @@ def draw_window(surface, grid, score = 0, last_score = 0):
       for i in range(len(grid)):
             for j in range(len(grid[i])):
                   pygame.draw.rect(surface, grid[i][j], (top_left_x + j*block_size, top_left_y + i*block_size, block_size, block_size), 5)
-                  
-                      
-      
-            
-            
-
     # draw grid  and border 
-                 draw_grid(surface, 20, 10)
-                 pygame.draw.rect(surface, (255, 0, 0), (top_left_x, top_left_y, play_width, play_height), 5)
+                  draw_grid(surface, 20, 10)
+                  pygame.draw.rect(surface, (255, 0, 0), (top_left_x, top_left_y, play_width, play_height), 5)
     # pygame.display.update()
       
       
