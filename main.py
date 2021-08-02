@@ -1,5 +1,7 @@
 import pygame
 import random 
+import test
+import sys
 
 """
 10 x 20 square grid
