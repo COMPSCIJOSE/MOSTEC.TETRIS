@@ -1,6 +1,6 @@
 import pygame
 import random 
-import test
+import scores
 import sys
 
 """
