@@ -310,7 +310,7 @@ def main():
         # PIECE FALLING CODE
         if fall_time/1000 >= fall_speed:
             fall_time = 0
-        if fall_time/1000 <= fall_speed:
+        if fall_time/1000 >= fall_speed:
             fall_time +=0.000000000000000001
             current_piece.y += 1
             if not (valid_space(current_piece, grid)) and current_piece.y > 0:
