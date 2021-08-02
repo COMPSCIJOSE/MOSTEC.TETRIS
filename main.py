@@ -412,7 +412,7 @@ def main_menu(win):
                   if event.type == pygame.QUIT:
                         run = False
                   if event.type == pygame.KEYDOWN:
-                        main()
+                        main(win)
       pygame.display.quit()
 
 
