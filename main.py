@@ -265,6 +265,7 @@ score = 0
 def update_score(nscore):
       score = max_score()
       
+      f = open(os.path.join(Documents, 'scores.txt'))      
       with open('scores.txt', 'w') as f:
             if int(score) > nscore:
                   f.write(str(score))
@@ -272,6 +273,7 @@ def update_score(nscore):
                  f.write(str(nscore))
             
 def max_score():
+      f = open(os.path.join(documents, 'scores.txt'))
       with open('scores.txt', 'r') as f:
             lines = f.readlines()
             score=lines[0].strip()
