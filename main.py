@@ -299,6 +299,10 @@ def main():
 
         if level_time/1000 > 4:
             level_time = 0
+        if level_time/1000 >= 4:
+            level_time += 1
+        if level_time <= 100:
+            level_time -= 0
             if fall_speed > 0.15:
                 fall_speed -= 0.005
             
@@ -306,6 +310,8 @@ def main():
         # PIECE FALLING CODE
         if fall_time/1000 >= fall_speed:
             fall_time = 0
+        if fall_time/1000 <= fall_speed:
+            fall_time +=0.02
             current_piece.y += 1
             if not (valid_space(current_piece, grid)) and current_piece.y > 0:
                 current_piece.y -= 1
@@ -393,7 +399,14 @@ def main_menu():
                 main()
     pygame.quit()
 
-
+def redrawWindow():
+    largeFont = pygame.font.SysFont('comicsans', 30) # Font object
+    sx=top_left_x - 200
+    sy= top_left_y + 300
+    text = largeFont.render('Score: ' + str(score), 1, (102,0,102)) # create our text
+    runner.draw(win)
+    for obstacle in obstacles:
+        obstacle.draw(win)
 win = pygame.display.set_mode((s_width, s_height))
 pygame.display.set_caption('MOSTEC-TRIS')
 
