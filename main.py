@@ -268,7 +268,7 @@ def draw_window(surface, grid, score = 0, last_score = 0):
 
 import sys, os
 
-print os.path.dirname(os.path.abspath(sys.argv[0])
+print(os.path.dirname(os.path.abspath(sys.argv[0])
 def update_score(nscore):
       score = max_score()
       
